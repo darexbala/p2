@@ -55,9 +55,6 @@
                                 echo '<option value="'.$number.'"'.($_POST['maxlength']==$number?' selected="selected"':'').'>'.$number.'</option>';
                             }
                         ?>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
                     </select>
                     <div class="checkbox">
                         <label>

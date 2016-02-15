@@ -9,9 +9,18 @@ $symbols = array('~', '`', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_'
     '=', '+', '{', '}', ']', '[', ':', ';', '\'', '"', '<', '.', '>', '/', '|', '?');
 $words = array();
 $numbers = array('1', '2', '3', '4', '5', '6', '7', '8', '9');
-$maxLengths = array('10','20', '30', '50');
+$maxLengths = array('10','20', '30', '40');
 
 $separatorErr = $password = $size = $separator = $maxlength = $Add_Number = $Add_Symbol = $case = "";
+
+if(isset($_SESSION['words'])){
+    $words = $_SESSION['words'];
+}
+
+if(empty($words))
+{
+    loadWordsIntoSession();
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $size = $_POST["size"];
@@ -36,30 +45,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(empty($words))
     {
-        for ($x = 1; $x <= 30; $x++) {
-            $firstVal = $x;
-            $secondVal = $firstVal + 1;
-            if($firstVal < 10){
-                $firstVal = sprintf( '%02d', $firstVal );
-            }
-            if($secondVal < 10){
-                $secondVal = sprintf( '%02d', $secondVal );
-            }
-            $urlToScrape = 'http://www.paulnoll.com/Books/Clear-English/words-' . $firstVal . '-' .$secondVal . '-hundred.html';
-            $pageContent = file_get_contents($urlToScrape);
-            $match_count = preg_match_all('@<li>(.*?)</li>@si',$pageContent,$matches_all);
-            foreach ($matches_all[1] as $value) {
-                $words[] = $value;
-            }
-            $x++;
-        }
-        $_SESSION['words'] = $words;
+        loadWordsIntoSession();
     }
     $tempPassword = getPassword($words, $size, $case, $Add_Number, $Add_Symbol, $separator, $symbols);
     while(strlen($tempPassword) > intval($maxlength)){
         $tempPassword = getPassword($words, $size, $case, $Add_Number, $Add_Symbol, $separator, $symbols);
     }
     $password = $tempPassword;
+}
+
+function loadWordsIntoSession()
+{
+    for ($x = 1; $x <= 30; $x++) {
+        $firstVal = $x;
+        $secondVal = $firstVal + 1;
+        if($firstVal < 10){
+            $firstVal = sprintf( '%02d', $firstVal );
+        }
+        if($secondVal < 10){
+            $secondVal = sprintf( '%02d', $secondVal );
+        }
+        $urlToScrape = 'http://www.paulnoll.com/Books/Clear-English/words-' . $firstVal . '-' .$secondVal . '-hundred.html';
+        $pageContent = file_get_contents($urlToScrape);
+        $match_count = preg_match_all('@<li>(.*?)</li>@si',$pageContent,$matches_all);
+        foreach ($matches_all[1] as $value) {
+            $words[] = $value;
+        }
+        $x++;
+    }
+    $_SESSION['words'] = $words;
 }
 
 function getPassword($words, $size, $case, $Add_Number, $Add_Symbol, $separator, $symbols) {
