@@ -9,7 +9,7 @@ $symbols = array('~', '`', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_'
     '=', '+', '{', '}', ']', '[', ':', ';', '\'', '"', '<', '.', '>', '/', '|', '?');
 $words = array();
 $numbers = array('1', '2', '3', '4', '5', '6', '7', '8', '9');
-$maxLengths = array('10','20', '30', '40');
+$maxLengths = array('20','30', '40', '50');
 
 $separatorErr = $password = $size = $separator = $maxlength = $Add_Number = $Add_Symbol = $case = "";
 
