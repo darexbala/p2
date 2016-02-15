@@ -45,10 +45,16 @@
                             }
                         ?>
                     </select>
-                    <label for="separator">Separator (*&^%$#!-)</label>
-                    <input type="text" name="separator" class="form-control" value="-">
+                    <label for="separator">Separator (Special characters only #!-$)</label>
+                    <input type="text" name="separator" class="form-control" value="<?php echo $separator;?>" placeholder="-">
+                    <span class="error"><?php echo $separatorErr;?></span>
                     <label for="maxlength">Max length</label>
                     <select class="form-control" name="maxlength">
+                        <?php
+                            foreach($maxLengths as $number){
+                                echo '<option value="'.$number.'"'.($_POST['maxlength']==$number?' selected="selected"':'').'>'.$number.'</option>';
+                            }
+                        ?>
                         <option value="20">20</option>
                         <option value="30">30</option>
                         <option value="40">40</option>

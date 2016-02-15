@@ -9,12 +9,18 @@ $symbols = array('~', '`', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_'
     '=', '+', '{', '}', ']', '[', ':', ';', '\'', '"', '<', '.', '>', '/', '|', '?');
 $words = array();
 $numbers = array('1', '2', '3', '4', '5', '6', '7', '8', '9');
+$maxLengths = array('10','20', '30', '50');
 
-$password = $size = $separator = $maxlength = $Add_Number = $Add_Symbol = $case = "";
+$separatorErr = $password = $size = $separator = $maxlength = $Add_Number = $Add_Symbol = $case = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $size = $_POST["size"];
-    $separator = $_POST["separator"];
+    if (!empty($_POST["separator"]) && !in_array($_POST["separator"], $symbols)) {
+        $separatorErr = "Valid separator is required!";
+        return;
+    }else{
+        $separator = $_POST["separator"];
+    }
     $maxlength = $_POST["maxlength"];
     if(isset($_POST['Add_Number'])){
         $Add_Number = $_POST["Add_Number"];
@@ -49,7 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $_SESSION['words'] = $words;
     }
+    $tempPassword = getPassword($words, $size, $case, $Add_Number, $Add_Symbol, $separator, $symbols);
+    while(strlen($tempPassword) > intval($maxlength)){
+        $tempPassword = getPassword($words, $size, $case, $Add_Number, $Add_Symbol, $separator, $symbols);
+    }
+    $password = $tempPassword;
+}
 
+function getPassword($words, $size, $case, $Add_Number, $Add_Symbol, $separator, $symbols) {
     $passwordList = [];
     $rand_keys = array_rand($words, intval($size));
     $keysLength = count($rand_keys);
@@ -82,5 +95,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if($Add_Symbol == 'on'){
         $password = $password . $symbols[array_rand($symbols)];
     }
+    return $password;
 }
 ?>
