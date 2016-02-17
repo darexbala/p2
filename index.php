@@ -86,7 +86,7 @@
             </div>
         </div>
         <br />
-        <a href="http://xkcd.com/936/">
+        <a href="http://xkcd.com/936/" target="_blank">
             <img class="comic" src="http://imgs.xkcd.com/comics/password_strength.png" alt="xkcd style passwords">
         </a>
         <footer class="footer">
