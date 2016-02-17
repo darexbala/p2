@@ -7,7 +7,7 @@
 Dynamic Web Applications - Project 2.
 
 ## Demo
-<https://youtu.be/tGdPAhIFh1M>
+<https://youtu.be/kQFeBPTJpWY>
 
 ## Details for teaching team
 * Used bower to pull down Bootstrap dependency.
