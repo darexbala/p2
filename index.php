@@ -33,7 +33,7 @@
         <div class="row">
 
             <div class="col-md-8 col-md-offset-3">
-                <h2 class="form-signin-heading"></h2>
+                <h2 class="form-signin-heading">xkcd Password Generator</h2>
                 <div class="well offset2"><h3><?php if(isset($password)){ echo $password; } ?></h3></div>
                 <div class="col-md-6 center col-md-offset-2">
                 <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
