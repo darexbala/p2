@@ -16,3 +16,4 @@ Dynamic Web Applications - Project 2.
 * Bootstrap: http://getbootstrap.com/
 * Template: http://getbootstrap.com/
 * Logo http://logomakr.com/
+* Words used for password sourced from http://www.paulnoll.com/
